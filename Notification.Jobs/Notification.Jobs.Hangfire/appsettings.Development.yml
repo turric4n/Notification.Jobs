@@ -5,8 +5,8 @@ NotificationServiceSettings:
     NotificationServiceBaseAddress: http://localhost:5000
     ClientTimeoutSeconds: 5
 Hangfire:
-  RedisHost: "dante.test:6380"
-  RedisDb: "3"
+  #### In order to use Hangfire Pro Redis storage - RedisHost: "dante.test:6380"
+  #### In order to use Hangfire Pro Redis storage - RedisDb: "3"
   RunningEnvironment: "Development"
   Jobs:    
     ###########################################
