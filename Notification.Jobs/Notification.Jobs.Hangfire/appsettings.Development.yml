@@ -1,0 +1,27 @@
+﻿QuickLogger: 
+  ConfigPath: "QuickLogger.json"  
+  ###########################################
+NotificationServiceSettings:
+    NotificationServiceBaseAddress: http://localhost:5000
+    ClientTimeoutSeconds: 5
+Hangfire:
+  RedisHost: "dante.test:6380"
+  RedisDb: "3"
+  RunningEnvironment: "Development"
+  Jobs:    
+    ###########################################
+  - Name: TestJob
+    Description : Only for readability purposes    
+    CronExpression: "* * * * *" # every minute
+    TimezoneName : Romance Standard Time
+    ###########################################
+  - Name: TurriJob in antoher project!
+    Description : Only for readability purposes    
+    CronExpression: "0 * * * *" # every hour
+    TimezoneName : Romance Standard Time
+    ###########################################
+  - Name: AnotherJobInTheSameProject
+    Description : Only for readability purposes    
+    CronExpression: "0 * * * *" # every hour
+    TimezoneName : Romance Standard Time
+    ###########################################

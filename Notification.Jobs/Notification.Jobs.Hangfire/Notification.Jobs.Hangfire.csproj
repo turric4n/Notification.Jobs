@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.Development.yml" />
+    <None Remove="appsettings.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.Development.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsettings.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Conditions.NetStandard" Version="1.1.0" />
+    <PackageReference Include="CronExpressionDescriptor" Version="2.16.0" />
+    <PackageReference Include="Hangfire" Version="1.7.25" />
+    <PackageReference Include="Hangfire.JobsLogger" Version="0.2.1" />
+    <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
+    <PackageReference Include="Hangfire.QuickJump" Version="0.1.0" />
+    <PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.1.0" />
+    <PackageReference Include="QuickLogger.Extensions.NetCore" Version="1.5.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Notification.Jobs.Commons\Notification.Jobs.Commons.csproj" />
+    <ProjectReference Include="..\Notification.Jobs.TestJob\Notification.Jobs.TestJob.csproj" />
+    <ProjectReference Include="..\Notification.Jobs.TurriJob\Notification.Jobs.TurriJob.csproj" />
+  </ItemGroup>
+
+</Project>
