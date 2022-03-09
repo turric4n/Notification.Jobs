@@ -1,20 +1,83 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Notifications and Scheduled Jobs framework for .NET
+Fresh Hangfire framework to manage Scheduled jobs
 
 # Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+Add job base instance in a new project inside same solution (Warning! Namespace of the project need to be : Notification.Jobs) as :
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+    Notification.Jobs.TestJob.cprog
+    
+    public class TurriJob : JobBase
+    {
+        private readonly ILogger _logger;
+        private readonly PerformContext _context;
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+        private const bool Enabled = true;
+
+        private const string JobName = "Test Job";
+
+        public TurriJob(ILogger<TurriJob> logger) : base(logger)
+        {
+            base.JobName = JobName;
+            _logger = logger;
+        }
+
+        [AutomaticRetry(Attempts = 0)]
+        [DisableConcurrentExecution(60)]
+        public override async Task ExecuteAsync(CancellationToken cancellationToken, PerformContext context)
+        {
+            base.Init(context);
+
+            if (!Enabled)
+            {
+                _logger.LogInformation($"Job Execution is disabled - {JobName} - ");
+                return;
+            }
+
+            if (IsRunning)
+            {
+                _logger.LogInformation($"Job Another instance is executing. Bye bye!  {JobName}");
+                return;
+            }
+
+            lock (this)
+            {
+                IsRunning = true;
+            }
+
+            await Task.Run(() =>
+            {
+                try
+                {
+                    string correlationId = Guid.NewGuid().ToString();                   
+
+                    _logger.LogInformation($"Job Started - {JobName}");                                       
+                    
+                    // Put JOB code here!
+
+                    _logger.LogInformation($"Job Stopped - {JobName}");
+                }
+
+                finally
+                {
+                    lock (this)
+                    {
+                        IsRunning = false;
+                    }
+                }
+
+            }, cancellationToken);
+        }
+    }
+    
+Update your settings file as :
+
+    Jobs:    
+      ###########################################
+    - Name: Test Job
+      Description : Only for readability purposes    
+      CronExpression: "* * * * *" # every minute
+      TimezoneName : Romance Standard Time
+      ###########################################
+      
+Run the program
