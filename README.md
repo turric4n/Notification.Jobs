@@ -1,5 +1,10 @@
 # Notifications and Scheduled Jobs framework for .NET
-Fresh Hangfire framework to manage Scheduled jobs
+Fresh Hangfire framework to manage Scheduled jobs with some adventages :
+
+- Put jobs in another projects inside the same solution
+- Import .NET jobs from another projects
+- Not only hangfire (future)
+- Cron expressions
 
 # Getting Started
 
