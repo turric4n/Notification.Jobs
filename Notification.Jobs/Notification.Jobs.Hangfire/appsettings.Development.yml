@@ -1,9 +1,6 @@
 ﻿QuickLogger: 
   ConfigPath: "QuickLogger.json"  
   ###########################################
-NotificationServiceSettings:
-    NotificationServiceBaseAddress: http://localhost:5000
-    ClientTimeoutSeconds: 5
 Hangfire:
   #### In order to use Hangfire Pro Redis storage - RedisHost: "dante.test:6380"
   #### In order to use Hangfire Pro Redis storage - RedisDb: "3"

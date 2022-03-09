@@ -42,9 +42,10 @@ namespace Notification.Jobs.Hangfire
 
             hangfireOptions
                 .Requires(nameof(hangfireOptions))
-                .IsNotNull()
-                .Requires(nameof(hangfireOptions.RedisHost))
                 .IsNotNull();
+                // In order to use Hangfire Pro Redis storage
+                //.Requires(nameof(hangfireOptions.RedisHost))
+                //.IsNotNull();
 
             var hangfireRunningEnv = hangfireOptions?.RunningEnvironment;
 
